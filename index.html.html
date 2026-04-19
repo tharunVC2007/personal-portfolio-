@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tharun.vc | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --bg-soft: #121922;
+      --panel: rgba(18, 25, 34, 0.7);
+      --panel-strong: rgba(23, 31, 43, 0.92);
+      --text: #ecf3fb;
+      --muted: #a7b6c8;
+      --line: rgba(255, 255, 255, 0.08);
+      --accent: #7be0c3;
+      --accent-strong: #9fd6ff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(123, 224, 195, 0.18), transparent 26%),
+        radial-gradient(circle at 85% 15%, rgba(159, 214, 255, 0.18), transparent 24%),
+        linear-gradient(180deg, #091017 0%, #0b0f14 48%, #101824 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+      opacity: 0.45;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(11, 15, 20, 0.55);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-main,
+    .hero-side,
+    .content-card {
+      padding: 2rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(123, 224, 195, 0.18);
+      background: rgba(123, 224, 195, 0.08);
+      color: #d7fff2;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5.7rem);
+      line-height: 0.95;
+      margin: 1.1rem 0 1rem;
+      letter-spacing: -0.05em;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: #dbe8f4;
+      max-width: 42rem;
+      margin-bottom: 1rem;
+    }
+
+    .intro {
+      max-width: 42rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+    }
+
+    .social-link {
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(123, 224, 195, 0.35);
+      background: rgba(123, 224, 195, 0.08);
+    }
+
+    .button,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.35rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button {
+      background: linear-gradient(135deg, var(--accent), #8bc6ff);
+      color: #061019;
+      box-shadow: 0 16px 40px rgba(123, 224, 195, 0.2);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .button:hover,
+    .button-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(18, 25, 34, 0.92), rgba(11, 15, 20, 0.95));
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 1.4rem;
+    }
+
+    .profile-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #061019;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      box-shadow: 0 12px 28px rgba(123, 224, 195, 0.22);
+      flex-shrink: 0;
+    }
+
+    .profile-text strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .profile-text span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+    }
+
+    .stat-value {
+      margin-top: 0.25rem;
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    .hero-note {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-top: 1rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 34rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .content-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -55% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(123, 224, 195, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .content-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.15rem;
+    }
+
+    .content-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .chip {
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: #dce8f3;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-3px);
+      border-color: rgba(123, 224, 195, 0.32);
+      background: rgba(123, 224, 195, 0.07);
+    }
+
+    .project-card {
+      background:
+        linear-gradient(160deg, rgba(159, 214, 255, 0.12), transparent 45%),
+        rgba(18, 25, 34, 0.84);
+    }
+
+    .project-meta,
+    .learn-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .project-meta span,
+    .learn-list span {
+      font-size: 0.88rem;
+      color: #d8e5f1;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2.4rem;
+      background:
+        radial-gradient(circle at top, rgba(123, 224, 195, 0.16), transparent 45%),
+        var(--panel-strong);
+    }
+
+    .contact-card a {
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 1.2rem 0 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: rise 0.8s ease forwards;
+    }
+
+    .reveal:nth-child(2) { animation-delay: 0.12s; }
+    .reveal:nth-child(3) { animation-delay: 0.2s; }
+    .reveal:nth-child(4) { animation-delay: 0.28s; }
+    .reveal:nth-child(5) { animation-delay: 0.36s; }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-card,
+      .grid.two,
+      .grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .hero-main,
+      .hero-side,
+      .content-card,
+      .contact-card {
+        padding: 1.4rem;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="page-shell nav">
+      <a href="#home" class="brand">Tharun.vc</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#learning">Learning</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" id="home">
+      <div class="hero-card">
+        <div class="hero-main glass reveal">
+          <div class="eyebrow">AI & Data Analytics Student</div>
+          <h1>Tharun<span>.vc</span></h1>
+          <p class="tagline">Curious mind exploring technology and creativity</p>
+          <p class="intro">
+            A motivated student passionate about learning, technology, and building real-world skills.
+            I am at the beginning of my journey, focused on growing every day through practice, curiosity,
+            and meaningful projects.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">View Project</a>
+            <a class="button-secondary" href="Tarun_VC_Resume.html" download>Download Resume</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="mailto:tharunvc2007@gmail.com">Email</a>
+            <a class="social-link" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="social-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="social-link" href="#contact">Contact Me</a>
+          </div>
+        </div>
+        <aside class="hero-side glass reveal">
+          <div class="profile-card">
+            <div class="profile-avatar">TV</div>
+            <div class="profile-text">
+              <strong>Tharun.vc</strong>
+              <span>Student portfolio profile card</span>
+            </div>
+          </div>
+          <div>
+            <div class="stat-label">Focus</div>
+            <div class="stat-value">Artificial Intelligence</div>
+          </div>
+          <div>
+            <div class="stat-label">Current Path</div>
+            <div class="stat-value">First-Year B.Tech</div>
+          </div>
+          <div>
+            <div class="stat-label">Mindset</div>
+            <div class="stat-value">Learning. Building. Improving.</div>
+          </div>
+          <p class="hero-note">
+            I enjoy combining technology, communication, and creativity while exploring the future of AI and digital work.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title reveal">
+        <h2>About Me</h2>
+        <p>
+          A student building a strong foundation in tech while staying open to collaboration,
+          creativity, and hands-on learning.
+        </p>
+      </div>
+      <div class="grid two">
+        <article class="content-card glass reveal">
+          <h3>Academic Journey</h3>
+          <p>
+            I am a first-year B.Tech student specializing in Artificial Intelligence and Data Analytics,
+            exploring the fundamentals of programming, data-driven thinking, and practical problem solving.
+          </p>
+        </article>
+        <article class="content-card glass reveal">
+          <h3>Strengths & Interests</h3>
+          <p>
+            I have strong communication skills, enjoy working with people, and love exploring technology,
+            AI, and creative fields such as editing. My goal is to grow into a skilled and adaptable creator.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title reveal">
+        <h2>Skills</h2>
+        <p>
+          A growing toolkit shaped by beginner-friendly coding practice, digital tools, and teamwork.
+        </p>
+      </div>
+      <div class="chips reveal">
+        <span class="chip">C Programming (Basic)</span>
+        <span class="chip">Java (Beginner)</span>
+        <span class="chip">HTML (Basic)</span>
+        <span class="chip">MS Excel</span>
+        <span class="chip">Microsoft PowerPoint</span>
+        <span class="chip">Microsoft Word</span>
+        <span class="chip">Communication & Teamwork</span>
+        <span class="chip">Video Editing (Learning)</span>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-title reveal">
+        <h2>Projects</h2>
+        <p>
+          Early projects that reflect curiosity, experimentation, and a strong interest in AI-based problem solving.
+        </p>
+      </div>
+      <article class="content-card glass project-card reveal">
+        <h3>AI-Based Fake News Detector</h3>
+        <p>
+          A beginner-friendly project focused on detecting fake news using basic AI concepts.
+          The idea is to analyze text patterns and classify news content to better understand how AI can
+          support information verification and social awareness.
+        </p>
+        <div class="project-meta">
+          <span>AI Concepts</span>
+          <span>Text Analysis</span>
+          <span>Learning Project</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="learning">
+      <div class="section-title reveal">
+        <h2>Currently Learning</h2>
+        <p>
+          Right now, my focus is on building stronger technical foundations while sharpening creative skills too.
+        </p>
+      </div>
+      <div class="grid three">
+        <article class="content-card glass reveal">
+          <h3>Programming Improvement</h3>
+          <p>Improving coding confidence through regular practice and step-by-step learning.</p>
+        </article>
+        <article class="content-card glass reveal">
+          <h3>AI & Data Concepts</h3>
+          <p>Exploring how data, logic, and machine intelligence come together in real-world applications.</p>
+        </article>
+        <article class="content-card glass reveal">
+          <h3>Video Editing</h3>
+          <p>Learning creative editing skills to combine storytelling, visuals, and digital expression.</p>
+        </article>
+      </div>
+      <div class="learn-list reveal">
+        <span>Consistency</span>
+        <span>Curiosity</span>
+        <span>Creative Growth</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-card glass reveal">
+        <div class="eyebrow">Let's Connect</div>
+        <h2>Contact</h2>
+        <p>
+          I'm always open to learning opportunities, collaborations, and conversations around technology and creativity.
+        </p>
+        <p>
+          Email:
+          <a href="mailto:tharunvc2007@gmail.com">tharunvc2007@gmail.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built as a personal brand portfolio for Tharun.vc.
+  </footer>
+</body>
+</html>
